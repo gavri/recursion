@@ -65,22 +65,28 @@
     (* n (power n (- k 1)))))
 
 (defn fib [n]
-  :-)
+  (cond (= n 0) 0
+    (= n 1) 1
+    :else (+ (fib (- n 1)) (fib (- n 2)))))
 
 (defn my-repeat [how-many-times what-to-repeat]
-  [:-])
+  (if (< how-many-times 1) '()
+    (cons what-to-repeat (my-repeat (- how-many-times 1) what-to-repeat))))
 
 (defn my-range [up-to]
-  [:-])
+  (if (= up-to 0) '()
+    (cons (- up-to 1) (my-range (- up-to 1)))))
 
 (defn tails [a-seq]
-  [:-])
+  (cond (empty? a-seq) '(())
+        :else (cons a-seq (tails (rest a-seq)))))
 
 (defn inits [a-seq]
-  [:-])
+  (map reverse (reverse (tails (reverse a-seq)))))
 
 (defn rotations [a-seq]
-  [:-])
+  (if (empty? a-seq) '(())
+    (rest (map concat (tails a-seq) (inits a-seq)))))
 
 (defn my-frequencies-helper [freqs a-seq]
   [:-])

@@ -88,14 +88,30 @@
   (if (empty? a-seq) '(())
     (rest (map concat (tails a-seq) (inits a-seq)))))
 
+(defn inc-frequency [f k]
+  (if (contains? f k)
+    (update-in f [k] inc)
+    (conj f {k 1})))
+
+
 (defn my-frequencies-helper [freqs a-seq]
-  [:-])
+  (if (empty? a-seq)
+    freqs
+    (my-frequencies-helper (inc-frequency freqs (first a-seq)) (rest a-seq))))
 
 (defn my-frequencies [a-seq]
-  [:-])
+  (my-frequencies-helper {} a-seq))
+
+(defn un-frequencies-kv-to-list [k v]
+  (if (= v 0)
+    '()
+    (cons k (un-frequencies-kv-to-list k (- v 1)))))
+
 
 (defn un-frequencies [a-map]
-  [:-])
+  (if (empty? a-map)
+    '()
+    (concat (apply un-frequencies-kv-to-list (first a-map)) (un-frequencies (rest a-map)))))
 
 (defn my-take [n coll]
   [:-])
